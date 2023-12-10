@@ -68,7 +68,7 @@ public final class Autos {
 
     public SequentialCommandGroup ExampleAuto() {
         return new SequentialCommandGroup(
-            new PathPlannerAuto("Example Path")
+            new PathPlannerAuto("Example Auto")
             );
     }
 
