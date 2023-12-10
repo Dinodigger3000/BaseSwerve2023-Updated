@@ -7,15 +7,15 @@ package frc.robot.subsystems;
 import java.util.Map;
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenixpro.configs.CANcoderConfiguration;
-import com.ctre.phoenixpro.configs.TalonFXConfiguration;
-import com.ctre.phoenixpro.controls.CoastOut;
-import com.ctre.phoenixpro.controls.NeutralOut;
-import com.ctre.phoenixpro.controls.PositionDutyCycle;
-import com.ctre.phoenixpro.controls.StaticBrake;
-import com.ctre.phoenixpro.controls.VelocityDutyCycle;
-import com.ctre.phoenixpro.hardware.CANcoder;
-import com.ctre.phoenixpro.hardware.TalonFX;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.CoastOut;
+import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.PositionDutyCycle;
+import com.ctre.phoenix6.controls.StaticBrake;
+import com.ctre.phoenix6.controls.VelocityDutyCycle;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -48,8 +48,8 @@ public class SwerveModule {
    */
   private double m_desiredDriveSpeed;
 
-  private VelocityDutyCycle m_driveControl = new VelocityDutyCycle(0, true, 0, 0, false);
-  private PositionDutyCycle m_steerControl = new PositionDutyCycle(0, true, 0, 0, false);
+  private VelocityDutyCycle m_driveControl = new VelocityDutyCycle(0);
+  private PositionDutyCycle m_steerControl = new PositionDutyCycle(0);
   private CoastOut m_coastControl = new CoastOut();
   private StaticBrake m_brakeControl = new StaticBrake();
   private NeutralOut m_neutralControl = new NeutralOut();

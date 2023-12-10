@@ -23,7 +23,7 @@ import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
 import java.util.Arrays;
 import java.util.Collections;
 
-import com.ctre.phoenixpro.hardware.Pigeon2;
+import com.ctre.phoenix6.hardware.Pigeon2;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -128,6 +128,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
 	}
 	public Rotation2d getGyroscopeRotation() {
 		return pigeon.getRotation2d();
+	}
+	public ChassisSpeeds getChassisSpeeds() {
+		return kinematics.toChassisSpeeds(getModuleStates());
 	}
 	public SwerveModulePosition[] getModulePositions() {
 		SwerveModulePosition[] positions = new SwerveModulePosition[4];

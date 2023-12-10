@@ -3,11 +3,12 @@ package frc.robot.Commands;
 import java.util.HashMap;
 import java.util.List;
 
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.auto.PIDConstants;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,7 +18,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 
 public final class Autos {
     private DrivetrainSubsystem drivetrain;
-    public static SwerveAutoBuilder autoBuilder;
+    public static AutoBuilder autoBuilder;
     private HashMap<String, Command> eventMap;
 
     private static Autos autos;
@@ -38,24 +39,27 @@ public final class Autos {
         // Create the AutoBuilder. This only needs to be created once when robot code
         // starts, not every time you want to create an auto command. A good place to
         // put this is in RobotContainer along with your subsystems.
-        Autos.autoBuilder = new SwerveAutoBuilder(
+        AutoBuilder.configureHolonomic(
                 drivetrain::getPose, // Pose2d supplier
                 drivetrain::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
-                drivetrain.kinematics, // SwerveDriveKinematics
-                new PIDConstants(
+                drivetrain::getChassisSpeeds,
+                drivetrain::drive,
+                new HolonomicPathFollowerConfig(
+                    new PIDConstants(
                         DriveConstants.k_XY_P,
                         DriveConstants.k_XY_I,
                         DriveConstants.k_XY_D), // PID constants to correct for translation error (used to create the X
                                                 // and Y PID controllers)
-                new PIDConstants(
+                    new PIDConstants(
                         DriveConstants.k_THETA_P,
                         DriveConstants.k_THETA_I,
                         DriveConstants.k_THETA_D), // PID constants to correct for rotation error (used to create the
                                                    // rotation controller)
-                drivetrain::setModuleStates, // Module states consumer used to output to the drive subsystem
-                eventMap,
-                true, // Should the path be automatically mirrored depending on alliance color.
-                       // Optional, defaults to true
+                    0, //max module speed
+                    1, //drive base radius
+                    new ReplanningConfig()
+                ),
+                // drivetrain::setModuleStates, // Module states consumer used to output to the drive subsystem
                 drivetrain // The drive subsystem. Used to properly set the requirements of path following
                            // commands
         );
@@ -66,10 +70,10 @@ public final class Autos {
 
     public SequentialCommandGroup ExampleAuto() {
         return new SequentialCommandGroup(
-            autoBuilder.fullAuto(driveForward)
+            new PathPlannerAuto("Example Path")
             );
     }
 
-    // load all paths.
-    static List<PathPlannerTrajectory> driveForward = PathPlanner.loadPathGroup("driveForward", new PathConstraints(2.5, 1.75));
+  
+    
 }

@@ -43,7 +43,8 @@ public class LimelightValues {
         public double getty(int index){return ty[index];}
         public double getta(int index){return ta[index];}
         public Pose2d getbotPose(){
-            if(DriverStation.getAlliance() ==  Alliance.Red){
+            if(DriverStation.getAlliance().equals(Alliance.Red)){//TODO make sure this works
+            // if(DriverStation.getAlliance() ==  Alliance.Red){
                 return botPoseRed;
             }else{
                 return botPoseBlue;
