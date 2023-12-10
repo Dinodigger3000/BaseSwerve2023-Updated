@@ -12,9 +12,8 @@ import static frc.robot.settings.Constants.PS4Driver.Y_AXIS;
 import static frc.robot.settings.Constants.PS4Driver.Z_AXIS;
 import static frc.robot.settings.Constants.PS4Driver.Z_ROTATE;
 
-import java.util.HashMap;
-
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -26,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Commands.Autos;
 import frc.robot.Commands.Drive;
 
 import frc.robot.settings.Constants;
@@ -50,8 +48,6 @@ public class RobotContainer {
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
   private final PS4Controller driveController;
-
-  private Autos autos;
 
   public RobotContainer() {
     /**
@@ -81,12 +77,11 @@ public class RobotContainer {
   }
 
   private void autoInit() {
-    autos = Autos.getInstance();
     NamedCommands.registerCommand("marker1", new PrintCommand("Passed marker 1"));
     NamedCommands.registerCommand("marker2", new PrintCommand("Passed marker 2"));
     NamedCommands.registerCommand("stop", new InstantCommand(drivetrain::stop, drivetrain));
 
-    autos.autoInit(autoChooser, drivetrain);
+    autoChooser.addOption("Example Auto", new PathPlannerAuto("Example Auto"));
     SmartDashboard.putData(autoChooser);
   }
 
