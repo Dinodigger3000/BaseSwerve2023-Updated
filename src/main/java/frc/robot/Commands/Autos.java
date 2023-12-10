@@ -19,7 +19,6 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public final class Autos {
     private DrivetrainSubsystem drivetrain;
     public static AutoBuilder autoBuilder;
-    private HashMap<String, Command> eventMap;
 
     private static Autos autos;
 
@@ -33,9 +32,8 @@ public final class Autos {
         return autos;
     }
 
-    public void autoInit(SendableChooser<Command> autoChooser, HashMap<String, Command> eventMap, DrivetrainSubsystem drivetrain) {
+    public void autoInit(SendableChooser<Command> autoChooser, DrivetrainSubsystem drivetrain) {
         this.drivetrain = drivetrain;
-        this.eventMap = eventMap;
         // Create the AutoBuilder. This only needs to be created once when robot code
         // starts, not every time you want to create an auto command. A good place to
         // put this is in RobotContainer along with your subsystems.

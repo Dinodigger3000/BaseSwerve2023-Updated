@@ -13,18 +13,17 @@ import static frc.robot.settings.Constants.PS4Driver.Z_AXIS;
 import static frc.robot.settings.Constants.PS4Driver.Z_ROTATE;
 
 import java.util.HashMap;
-import java.util.Map;
+
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.Autos;
@@ -51,20 +50,15 @@ public class RobotContainer {
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
   private final PS4Controller driveController;
-  private final PS4Controller opController;
 
   private Autos autos;
-
-  public static HashMap<String, Command> eventMap;
 
   public RobotContainer() {
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     driveController = new PS4Controller(0);
-    opController = new PS4Controller(1);
     autoChooser = new SendableChooser<>();
-    eventMap = new HashMap<>();
 
     drivetrain = new DrivetrainSubsystem();
     // Set up the default command for the drivetrain.
@@ -88,11 +82,11 @@ public class RobotContainer {
 
   private void autoInit() {
     autos = Autos.getInstance();
-    eventMap.put("marker1", new PrintCommand("Passed marker 1"));
-    eventMap.put("marker2", new PrintCommand("Passed marker 2"));
-    eventMap.put("stop", new InstantCommand(drivetrain::stop, drivetrain));
+    NamedCommands.registerCommand("marker1", new PrintCommand("Passed marker 1"));
+    NamedCommands.registerCommand("marker2", new PrintCommand("Passed marker 2"));
+    NamedCommands.registerCommand("stop", new InstantCommand(drivetrain::stop, drivetrain));
 
-    autos.autoInit(autoChooser, eventMap, drivetrain);
+    autos.autoInit(autoChooser, drivetrain);
     SmartDashboard.putData(autoChooser);
   }
 
