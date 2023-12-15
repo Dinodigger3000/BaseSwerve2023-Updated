@@ -4,13 +4,9 @@
 
 package frc.robot;
 
-import static frc.robot.settings.Constants.PS4Driver.DEADBAND_LARGE;
-import static frc.robot.settings.Constants.PS4Driver.DEADBAND_NORMAL;
-import static frc.robot.settings.Constants.PS4Driver.NO_INPUT;
-import static frc.robot.settings.Constants.PS4Driver.X_AXIS;
-import static frc.robot.settings.Constants.PS4Driver.Y_AXIS;
-import static frc.robot.settings.Constants.PS4Driver.Z_AXIS;
-import static frc.robot.settings.Constants.PS4Driver.Z_ROTATE;
+import static frc.robot.settings.Constants.PS4Driver.*;
+import static frc.robot.settings.Constants.*;
+
 
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -30,6 +26,7 @@ import frc.robot.Commands.Drive;
 import frc.robot.settings.Constants;
 
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Lights;
 
 
 /**
@@ -45,6 +42,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private DrivetrainSubsystem drivetrain;
+  private Lights lights;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
   private final PS4Controller driveController;
@@ -57,7 +55,7 @@ public class RobotContainer {
      */
     driveController = new PS4Controller(0);
     autoChooser = new SendableChooser<>();
-
+    lights = new Lights(LED_COUNT);
     drivetrain = new DrivetrainSubsystem();
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
@@ -83,6 +81,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("marker1", new PrintCommand("Passed marker 1"));
     NamedCommands.registerCommand("marker2", new PrintCommand("Passed marker 2"));
     NamedCommands.registerCommand("stop", new InstantCommand(drivetrain::stop, drivetrain));
+    NamedCommands.registerCommand("setLightsRed", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 100, 0, 0), lights));
 
     autos.autoInit(autoChooser, drivetrain);
     SmartDashboard.putData(autoChooser);
