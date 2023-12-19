@@ -17,7 +17,7 @@ import static frc.robot.settings.Constants.DriveConstants.*;
 public final class Autos {
     private DrivetrainSubsystem drivetrain;
     public static AutoBuilder autoBuilder;
-
+    public static SendableChooser<Command> autoChooser;
     private static Autos autos;
 
     private void Autos() {
@@ -30,7 +30,7 @@ public final class Autos {
         return autos;
     }
 
-    public void autoInit(SendableChooser<Command> autoChooser, DrivetrainSubsystem drivetrain) {
+    public void autoInit(DrivetrainSubsystem drivetrain) {
         this.drivetrain = drivetrain;
         // Create the AutoBuilder. This only needs to be created once when robot code
         // starts, not every time you want to create an auto command. A good place to
@@ -59,16 +59,19 @@ public final class Autos {
                 drivetrain // The drive subsystem. Used to properly set the requirements of path following
                            // commands
         );
+        autoChooser = AutoBuilder.buildAutoChooser("Example Auto"); // automatically add all autos to a new chooser!
+
         // add autos to smart dashboard.\
-        autoChooser.addOption("example auto", ExampleAuto());
-   
+        // autoChooser.addOption("example auto", ExampleAuto());//not needed anymore, unless you want to add a NON-pathplanner auto
     }
 
-    public SequentialCommandGroup ExampleAuto() {
-        return new SequentialCommandGroup(
-            new PathPlannerAuto("Example Auto")
-            );
-    }
+    
+    /**A relic of old code, instead of calling this in RobotContainer, use "new PathPlannerAuto("Example Auto")" without having to call this method. */
+    // public SequentialCommandGroup ExampleAuto() {
+    //     return new SequentialCommandGroup(
+    //         new PathPlannerAuto("Example Auto")
+    //         ); 
+    // }
 
   
     

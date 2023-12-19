@@ -16,7 +16,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.PS4Controller;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -46,7 +45,6 @@ public class RobotContainer {
 
   private DrivetrainSubsystem drivetrain;
   private Drive defaultDriveCommand;
-  private SendableChooser<Command> autoChooser;
   private final PS4Controller driveController;
 
   private Autos autos;
@@ -56,7 +54,6 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     driveController = new PS4Controller(0);
-    autoChooser = new SendableChooser<>();
 
     drivetrain = new DrivetrainSubsystem();
     // Set up the default command for the drivetrain.
@@ -84,8 +81,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("marker2", new PrintCommand("Passed marker 2"));
     NamedCommands.registerCommand("stop", new InstantCommand(drivetrain::stop, drivetrain));
 
-    autos.autoInit(autoChooser, drivetrain);
-    SmartDashboard.putData(autoChooser);
+    autos.autoInit(drivetrain);
+    SmartDashboard.putData(Autos.autoChooser);
   }
 
   /**
@@ -132,7 +129,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    return Autos.autoChooser.getSelected();
   }
 
   private double modifyAxis(double value, double deadband) {
