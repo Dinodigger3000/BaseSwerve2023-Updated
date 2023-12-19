@@ -24,10 +24,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -114,27 +110,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
 			getGyroscopeRotation(),
 			getModulePositions(),
 			DRIVE_ODOMETRY_ORIGIN);
-		
-		AutoBuilder.configureHolonomic(
-                this::getPose, // Pose2d supplier
-                this::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
-                this::getChassisSpeeds,
-                this::drive,
-                new HolonomicPathFollowerConfig(
-                    new PIDConstants(
-                        DriveConstants.k_XY_P,
-                        DriveConstants.k_XY_I,
-                        DriveConstants.k_XY_D), // PID constants to correct for translation error (used to create the X and Y PID controllers)
-                    new PIDConstants(
-                        DriveConstants.k_THETA_P,
-                        DriveConstants.k_THETA_I,
-                        DriveConstants.k_THETA_D), // PID constants to correct for rotation error (used to create the rotation controller)
-                    0, //max module speed
-                    1, //drive base radius
-                    new ReplanningConfig()
-                ),
-                this // The drive subsystem. Used to properly set the requirements of path following commands
-        );
 		}
 	/**
 	 * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently facing to the

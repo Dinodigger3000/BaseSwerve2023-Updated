@@ -12,8 +12,12 @@ import static frc.robot.settings.Constants.PS4Driver.Y_AXIS;
 import static frc.robot.settings.Constants.PS4Driver.Z_AXIS;
 import static frc.robot.settings.Constants.PS4Driver.Z_ROTATE;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -26,9 +30,9 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.Drive;
-
+import frc.robot.Commands.autos.ExampleAuto;
 import frc.robot.settings.Constants;
-
+import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 
@@ -77,11 +81,31 @@ public class RobotContainer {
   }
 
   private void autoInit() {
+    AutoBuilder.configureHolonomic(
+        drivetrain::getPose, // Pose2d supplier
+        drivetrain::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
+        drivetrain::getChassisSpeeds,
+        drivetrain::drive,
+        new HolonomicPathFollowerConfig(
+            new PIDConstants(
+                DriveConstants.k_XY_P,
+                DriveConstants.k_XY_I,
+                DriveConstants.k_XY_D), // PID constants to correct for translation error (used to create the X and Y PID controllers)
+            new PIDConstants(
+                DriveConstants.k_THETA_P,
+                DriveConstants.k_THETA_I,
+                DriveConstants.k_THETA_D), // PID constants to correct for rotation error (used to create the rotation controller)
+            0, // max module speed //TODO add actual value
+            1, // drive base radius //TODO add actual value
+            new ReplanningConfig()),
+        drivetrain); // The drive subsystem. Used to properly set the requirements of path following commands
+
     NamedCommands.registerCommand("marker1", new PrintCommand("Passed marker 1"));
     NamedCommands.registerCommand("marker2", new PrintCommand("Passed marker 2"));
     NamedCommands.registerCommand("stop", new InstantCommand(drivetrain::stop, drivetrain));
 
     autoChooser.addOption("Example Auto", new PathPlannerAuto("Example Auto"));
+    // autoChooser.addOption("Example Auto", new ExampleAuto()); //does same as above but uses "\Commands\autos\ExampleAuto.java"
     SmartDashboard.putData(autoChooser);
   }
 
