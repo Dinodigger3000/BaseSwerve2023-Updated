@@ -154,7 +154,7 @@ public class SwerveModule {
       m_driveMotor.setControl(m_neutralControl);
       m_steerMotor.setControl(m_steerControl.withPosition(m_desiredSteerAngle));
     } else {
-      m_driveMotor.setControl(m_driveControl.withVelocity(m_desiredDriveSpeed).withFeedForward(m_desiredDriveSpeed/DriveConstants.MAX_VELOCITY_RPS_EMPIRICAL));
+      m_driveMotor.setControl(m_driveControl.withVelocity(m_desiredDriveSpeed).withFeedForward(m_desiredDriveSpeed/DriveConstants.MAX_VELOCITY_RPS_EMPIRICAL));//TODO verify that this feedforward is effective
       m_steerMotor.setControl(m_steerControl.withPosition(m_desiredSteerAngle));
     }
   }
