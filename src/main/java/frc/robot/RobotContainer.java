@@ -58,7 +58,7 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     driveController = new PS4Controller(0);
-    autoChooser = new SendableChooser<>();
+    // autoChooser = new SendableChooser<>();
 
     drivetrain = new DrivetrainSubsystem();
     // Set up the default command for the drivetrain.
@@ -104,8 +104,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("marker2", new PrintCommand("Passed marker 2"));
     NamedCommands.registerCommand("stop", new InstantCommand(drivetrain::stop, drivetrain));
 
-    autoChooser.addOption("Example Auto", new PathPlannerAuto("Example Auto"));
-    // autoChooser.addOption("Example Auto", new ExampleAuto()); //does same as above but uses "\Commands\autos\ExampleAuto.java"
+    autoChooser = AutoBuilder.buildAutoChooser(); // Populated with all pathplanner autos automatically! Default auto will be `Commands.none()`
+    // autoChooser.addOption("Example Auto", new PathPlannerAuto("Example Auto")); don't need this anymore
+    
     SmartDashboard.putData(autoChooser);
   }
 
