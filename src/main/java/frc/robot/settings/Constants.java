@@ -32,9 +32,9 @@ public final class Constants {
   public static final class DriveConstants {
     public enum Positions{
       FL(0),
-      FR(0.25),
+      FR(0),
       BL(0.5),
-      BR(0.75);
+      BR(0.5);
 
       private double rotation;
 
@@ -51,10 +51,10 @@ public final class Constants {
       BENH(0.153564),
       EVELYN(-0.111084),
       OMARIAHN(0.266846),
-      PHOEBE(-0.245850),
-      ROYCE(-0.003174),
-      ROWAN(0.391602),
-      QUINN(0.355713),
+      PHOEBE(0.253174), //Moira FL
+      ROYCE(-0.254639), // Moira FR
+      ROWAN(-0.113525), // Moira BL
+      QUINN(0.108154), //Moira BR
       LIAM(0),
       LEVI(-0.38501);
       private double offset;
