@@ -29,6 +29,9 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 public final class Constants {
 
   private Constants () {}
+
+  public static final int LED_COUNT = 10;
+
   public static final class DriveConstants {
     public enum Positions{
       FL(0),
