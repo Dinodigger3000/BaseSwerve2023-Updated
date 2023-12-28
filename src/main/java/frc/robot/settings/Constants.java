@@ -35,9 +35,9 @@ public final class Constants {
   public static final class DriveConstants {
     public enum Positions{
       FL(0),
-      FR(0.25),
+      FR(0),
       BL(0.5),
-      BR(0.75);
+      BR(0.5);
 
       private double rotation;
 
@@ -54,10 +54,10 @@ public final class Constants {
       BENH(0.153564),
       EVELYN(-0.111084),
       OMARIAHN(0.266846),
-      PHOEBE(-0.245850),
-      ROYCE(-0.003174),
-      ROWAN(0.391602),
-      QUINN(0.355713),
+      PHOEBE(0.253174), //Moira FL
+      ROYCE(-0.254639), // Moira FR
+      ROWAN(-0.113525), // Moira BL
+      QUINN(0.108154), //Moira BR
       LIAM(0),
       LEVI(-0.38501);
       private double offset;
@@ -147,8 +147,8 @@ public final class Constants {
     // Here we calculate the theoretical maximum angular velocity. You can also replace this with a measured amount.
     public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND = MAX_VELOCITY_METERS_PER_SECOND /
         Math.hypot(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0);
-        
-        public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
+
+    public static final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
         // Front left
         new Translation2d(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0),
         // Front right
@@ -156,8 +156,7 @@ public final class Constants {
         // Back left
         new Translation2d(-DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0),
         // Back right
-        new Translation2d(-DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DRIVETRAIN_WHEELBASE_METERS / 2.0)
-    );
+        new Translation2d(-DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DRIVETRAIN_WHEELBASE_METERS / 2.0));
 
     public static final String DRIVETRAIN_SMARTDASHBOARD_TAB = "Drivetrain";
     public static final String CANIVORE_DRIVETRAIN = "Swerve";

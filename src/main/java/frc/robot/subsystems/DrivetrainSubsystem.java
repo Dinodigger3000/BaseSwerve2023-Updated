@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -70,7 +72,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 		Preferences.initString("FR", "AUGIE");
 		Preferences.initString("BL", "AUGIE");
 		Preferences.initString("BR", "AUGIE");
-
+		PathPlannerLogging.setLogActivePathCallback((poses) -> m_field.getObject("path").setPoses(poses));
 		SmartDashboard.putData("Field", m_field);
 		SmartDashboard.putData("resetOdometry", new InstantCommand(() -> this.resetOdometry()));
 		modules = new SwerveModule[4];
@@ -166,7 +168,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 		setModule(3, new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
 	}
 	public void drive(ChassisSpeeds chassisSpeeds) {
-		SwerveModuleState[] desiredStates = kinematics.toSwerveModuleStates(chassisSpeeds);
+		// SwerveModuleState[] desiredStates = kinematics.toSwerveModuleStates(chassisSpeeds);
+		SwerveModuleState[] desiredStates = kinematics.toSwerveModuleStates(ChassisSpeeds.discretize(chassisSpeeds, 0.02)); //TODO see if this works as expected
 		double maxSpeed = Collections.max(Arrays.asList(desiredStates)).speedMetersPerSecond;
 		if (maxSpeed <= DriveConstants.DRIVE_DEADBAND_MPS) {
 			for (int i = 0; i < 4; i++) {
