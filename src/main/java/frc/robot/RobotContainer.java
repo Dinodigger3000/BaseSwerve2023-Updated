@@ -7,7 +7,7 @@ package frc.robot;
 import static frc.robot.settings.Constants.PS4Driver.*;
 import static frc.robot.settings.Constants.*;
 
-
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.MathUtil;
@@ -53,10 +53,11 @@ public class RobotContainer {
      */
     driveController = new PS4Controller(0);
 
-    autoChooser = new SendableChooser<>();
     lights = new Lights(LED_COUNT);
 
     drivetrain = new DrivetrainSubsystem();
+
+    lights.setLightsRed();
     // Set up the default command for the drivetrain.
     // The controls are for field-oriented driving:
     // Left stick Y axis -> Robot X movement, backward/forward
@@ -82,9 +83,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("marker2", new PrintCommand("Passed marker 2"));
     NamedCommands.registerCommand("stop", new InstantCommand(drivetrain::stop, drivetrain));
     NamedCommands.registerCommand("setLightsRed", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 100, 0, 0), lights));
+    NamedCommands.registerCommand("setLightsBlue", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 0, 0, 100), lights));
+    NamedCommands.registerCommand("setLightsGreen", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 0, 100, 0), lights));
+    SmartDashboard.putData("setLightsRed", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 100, 0, 0), lights));
 
     autos.autoInit(drivetrain);
-    SmartDashboard.putData(Autos.autoChooser);
   }
 
   /**
@@ -124,6 +127,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     new Trigger(driveController::getPSButton).onTrue(Commands.runOnce(drivetrain::zeroGyroscope, drivetrain));
+    new Trigger(driveController::getSquareButton).onTrue(Commands.parallel(autos.getBeanPath(), new InstantCommand(lights::setLightsBlue, lights)));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -131,7 +135,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return Autos.autoChooser.getSelected();
+     return Autos.autoChooser.getSelected();
+    // Beans
   }
 
   private double modifyAxis(double value, double deadband) {

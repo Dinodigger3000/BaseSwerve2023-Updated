@@ -27,6 +27,15 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;public class Lights extends Su
       setOneLightRGB(i, R, G, B);
     }
   } 
+  public void setLightsRed() {
+    setLights(0, 51, 100, 0, 0);
+  }
+  public void setLightsBlue() {
+    setLights(0, 51, 0, 0, 100);
+  }
+  public void setLightsGreen() {
+    setLights(0, 51, 0, 1000, 0);
+  }
   public void lightsOut() {
     for(int i = 0; i < LEDBuffer.getLength(); i++) {
       setOneLightRGB(i, 0, 0, 0);

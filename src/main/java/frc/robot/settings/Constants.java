@@ -4,6 +4,8 @@
 
 package frc.robot.settings;
 
+import javax.sound.midi.Patch;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -11,6 +13,7 @@ import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -30,14 +33,14 @@ public final class Constants {
 
   private Constants () {}
 
-  public static final int LED_COUNT = 10;
+  public static final int LED_COUNT = 52;
 
   public static final class DriveConstants {
     public enum Positions{
       FL(0),
-      FR(0),
+      FR(0.25),
       BL(0.5),
-      BR(0.5);
+      BR(0.75);
 
       private double rotation;
 
@@ -54,10 +57,14 @@ public final class Constants {
       BENH(0.153564),
       EVELYN(-0.111084),
       OMARIAHN(0.266846),
-      PHOEBE(0.253174), //Moira FL
-      ROYCE(-0.254639), // Moira FR
-      ROWAN(-0.113525), // Moira BL
-      QUINN(0.108154), //Moira BR
+      PHOEBE(-0.2458), //Moira FL
+      ROYCE(-0.0031), // Moira FR
+      ROWAN(0.3916), // Moira BL
+      QUINN(0.3557), //Moira BR
+      // PHOEBE(0.253174), //Moira FL
+      // ROYCE(-0.254639), // Moira FR
+      // ROWAN(-0.113525), // Moira BL
+      // QUINN(0.108154), //Moira BR
       LIAM(0),
       LEVI(-0.38501);
       private double offset;
@@ -209,11 +216,11 @@ public final class Constants {
 
     // Auto PID loops
     // twin pid controllers that control the x and y robot movements.
-    public static final double k_XY_P = 2.5;
+    public static final double k_XY_P = 5;//*2.5;
     public static final double k_XY_I = 0.0;
     public static final double k_XY_D = 0.0;
 
-    public static final double k_THETA_P = 5.0;
+    public static final double k_THETA_P = 1.0;
     public static final double k_THETA_I = 0.0;
     public static final double k_THETA_D = 0.0;
     public static final double k_THETA_TOLORANCE_DEGREES = 2.0;
@@ -224,6 +231,8 @@ public final class Constants {
     public static final double k_BALANCE_D = 0.0;
     public static final double k_BALANCE_TOLORANCE_DEGREES = 10.0;
     public static final double k_BALANCE_TOLORANCE_DEG_PER_SEC = 1;
+
+    public static final PathConstraints DEFAUL_PATH_CONSTRAINTS = new PathConstraints(2, 1.5, Math.toRadians(360), Math.toRadians(360));
 }
 public static final class CTREConfigs {
   public TalonFXConfiguration driveMotorConfig;

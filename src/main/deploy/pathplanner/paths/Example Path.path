@@ -11,7 +11,8 @@
         "x": 3.8179220225773234,
         "y": 4.661043006292926
       },
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -22,13 +23,41 @@
         "x": 4.801799085918125,
         "y": 4.661043006292926
       },
+      "nextControl": {
+        "x": 6.007571304752137,
+        "y": 4.661043006292926
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.1211772245608564,
+        "y": 3.4613489867549134
+      },
+      "prevControl": {
+        "x": 6.026085219430228,
+        "y": 4.526379444217963
+      },
       "nextControl": null,
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": "ChargeStation"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.3,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -37,9 +66,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 0.0,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": null,
-  "previewStartingState": null
+  "previewStartingState": null,
+  "useDefaultConstraints": false
 }

@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "setLightsRed"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Beans"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "setLightsGreen"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Steam"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "setLightsBlue"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Sneab"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

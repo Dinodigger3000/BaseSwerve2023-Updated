@@ -3,50 +3,52 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.1211772245608564,
-        "y": 3.4613489867549134
+        "x": 9.0,
+        "y": 1.7859000781292707
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.121177224560861,
-        "y": 2.9613489867549134
+        "x": 8.0,
+        "y": 1.7859000781292709
       },
       "isLocked": false,
-      "linkedName": "ChargeStation"
+      "linkedName": "Boom"
     },
     {
       "anchor": {
         "x": 7.0,
-        "y": 4.523458761203237
+        "y": 1.7859000781292707
       },
       "prevControl": {
-        "x": 6.718013168317453,
-        "y": 5.909273837884696
-      },
-      "nextControl": {
-        "x": 7.282539279364273,
-        "y": 3.134928698428826
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 5.965582931165863,
-        "y": 1.4744185202656128
-      },
-      "prevControl": {
-        "x": 7.121321528357343,
-        "y": 2.0633549838528262
+        "x": 8.0,
+        "y": 1.7859000781292707
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Launch"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "setLightsRed"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.5,
     "maxAcceleration": 0.5,

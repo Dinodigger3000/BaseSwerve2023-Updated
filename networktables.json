@@ -1,0 +1,34 @@
+[
+  {
+    "name": "/Preferences/FL",
+    "type": "string",
+    "value": "AUGIE",
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/FR",
+    "type": "string",
+    "value": "AUGIE",
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/BL",
+    "type": "string",
+    "value": "AUGIE",
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/BR",
+    "type": "string",
+    "value": "AUGIE",
+    "properties": {
+      "persistent": true
+    }
+  }
+]

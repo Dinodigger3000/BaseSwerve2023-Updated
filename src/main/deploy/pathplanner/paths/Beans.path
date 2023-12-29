@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.0,
+        "y": 1.7859000781292707
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.000000000000002,
+        "y": 1.7859000781292707
+      },
+      "isLocked": false,
+      "linkedName": "Launch"
+    },
+    {
+      "anchor": {
+        "x": 9.0,
+        "y": 1.7859000781292707
+      },
+      "prevControl": {
+        "x": 8.229667902373778,
+        "y": 1.7909736578966837
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Boom"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "setLightsRed"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 360.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -90.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": -90.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
