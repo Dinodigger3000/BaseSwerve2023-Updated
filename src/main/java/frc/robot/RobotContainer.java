@@ -11,6 +11,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,11 +22,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.Autos;
 import frc.robot.Commands.Drive;
-
+import frc.robot.Commands.DriveToCube;
 import frc.robot.settings.Constants;
 
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Lights;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 
 
 /**
@@ -44,6 +48,9 @@ public class RobotContainer {
   private Lights lights;
   private Drive defaultDriveCommand;
   private final PS4Controller driveController;
+  NetworkTableInstance defaultNT = NetworkTableInstance.getDefault();
+  NetworkTableInstance objRecog = NetworkTableInstance.create();
+
 
   private Autos autos;
 
@@ -85,6 +92,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("setLightsRed", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 100, 0, 0), lights));
     NamedCommands.registerCommand("setLightsBlue", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 0, 0, 100), lights));
     NamedCommands.registerCommand("setLightsGreen", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 0, 100, 0), lights));
+    NamedCommands.registerCommand("DriveToCube", new DriveToCube(drivetrain));
+    NamedCommands.registerCommand("driveForwardAndRotate", new InstantCommand(()-> drivetrain.drive(new ChassisSpeeds(0.5, 0, 1)), drivetrain));
+
+    SmartDashboard.putData("DriveToCube", new DriveToCube(drivetrain));
     SmartDashboard.putData("setLightsRed", new InstantCommand(()->lights.setLights(0, LED_COUNT-1, 100, 0, 0), lights));
 
     autos.autoInit(drivetrain);
@@ -127,7 +138,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     new Trigger(driveController::getPSButton).onTrue(Commands.runOnce(drivetrain::zeroGyroscope, drivetrain));
-    new Trigger(driveController::getSquareButton).onTrue(Commands.parallel(autos.getBeanPath(), new InstantCommand(lights::setLightsBlue, lights)));
+    // new Trigger(driveController::getSquareButton).onTrue(Commands.parallel(autos.getBeanPath(), new InstantCommand(lights::setLightsBlue, lights)));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

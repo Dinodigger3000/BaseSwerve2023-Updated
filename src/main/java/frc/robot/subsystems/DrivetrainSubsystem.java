@@ -41,9 +41,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
+import frc.robot.settings.Constants;
 import frc.robot.settings.LimelightValues;
 import frc.robot.settings.Constants.CTREConfigs;
 import frc.robot.settings.Constants.DriveConstants;
+import frc.robot.settings.Constants.Vision;
 import frc.robot.settings.Constants.DriveConstants.Offsets;
 import frc.robot.settings.Constants.DriveConstants.Positions;
 
@@ -207,7 +209,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 	public void periodic() {
 		updateOdometry();
 		if (SmartDashboard.getBoolean("use limelight", false)) {
-			LimelightValues visionData = new LimelightValues(LimelightHelpers.getLatestResults("").targetingResults, LimelightHelpers.getTV(""));
+			LimelightValues visionData = new LimelightValues(LimelightHelpers.getLatestResults(Vision.APRILTAG_LIMELIGHT_NAME).targetingResults, LimelightHelpers.getTV(Vision.APRILTAG_LIMELIGHT_NAME));
 			Boolean isVisionValid = visionData.isResultValid;
 			Boolean isVisionTrustworthy = isVisionValid && visionData.isPoseTrustworthy(odometer.getEstimatedPosition());
 			SmartDashboard.putBoolean("visionValid", isVisionTrustworthy);

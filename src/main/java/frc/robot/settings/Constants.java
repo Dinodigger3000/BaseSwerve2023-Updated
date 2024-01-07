@@ -300,4 +300,19 @@ public static final class CTREConfigs {
     public static final double DEADBAND_NORMAL = 0.08;
     public static final double DEADBAND_LARGE = 0.1;
 }
+
+public final class Vision{
+  public static final String APRILTAG_LIMELIGHT_NAME = "AprilLimelight";
+  public static final String OBJ_DETECITON_LIMELIGHT_NAME = "NeuralLimelight";
+
+  public static final Translation2d fieldCorner = new Translation2d(16.54, 8.02);
+
+  public static final double K_DETECTOR_TX_P = 0.1;
+  public static final double K_DETECTOR_TX_I = 0;
+  public static final double K_DETECTOR_TX_D = 0;
+  
+  public static final double K_DETECTOR_TA_P = 0.1;
+  public static final double K_DETECTOR_TA_I = 0;
+  public static final double K_DETECTOR_TA_D = 0;
+}
 }
